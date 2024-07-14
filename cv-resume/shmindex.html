@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Public+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="styles.css" rel="stylesheet">
+    <link href="shtyles.css" rel="stylesheet">
     <title>CV Resume</title>
 </head>
 <body>
@@ -15,7 +15,7 @@
         <div class="header__container">
             <div class="header__menu menu">
                 <nav class="menu__navigation">
-                    <li class="menu__item menu__item-orange"><a href="#"  >Home</a></li>
+                    <li class="menu__item menu__item-orange"><a href="#">Home</a></li>
                     <li class="menu__item"><a href="#">About</a></li>
                     <li class="menu__item"><a href="#">Portfolio</a></li>
                     <li class="menu__item"><a href="#">Services</a></li>
@@ -29,36 +29,34 @@
         </div>
     </header>
     <main>
-        <div class="hero">
+        <section class="hero">
             <div class="hero__container">
                 <div class="hero__content">
-                    <div class="hero__content-left">
-                        <div class="circle-mini"></div>
-                        <p class="fw-900">welcome My Portfolio</p>
-                        <h1>Hello, i‘m Johan Deo <span class="orange-clr">Professional</span> Designer.</h1>
-                        <p>Conveniently customize proactive web services for leveraged without continualliery aggregate fricctionle ou wellies richard.</p>
-                        <div class="hero__buttons">
-                            <button class="btn-orange">Hire Me</button>
-                            <button class="btn-transparent">Download CV</button>
-                        </div>
-                    </div>
-                    <div class="hero__content-right">
-                        <div class="hero__img-circle">
-                            <div class="hero__img-icons figma"><img src="images/figma.png" alt="figma icon"></div>
-                            <div class="hero__img-icons photoshop"><img src="images/photoshop.png" alt="photoshop icon"></div>
-                            <div class="hero__img-icons xd"><img src="images/xd.png" alt="xd icon"></div>
-                            <div class="hero__img-icons sketch"><img src="images/sketch.png" alt="sketch icon"></div>
-                        </div>
+                    <p class="fw-900">Welcome My Portfolio</p>
+                    <h1>Hello, i‘m Johan Deo <span class="orange-clr">Professional</span> Designer.</h1>
+                    <p>Conveniently customize proactive web services for leveraged without continualliery aggregate fricctionle ou wellies richard.</p>
+                    <div class="hero__buttons">
+                        <button class="btn-orange">Hire Me</button>
+                        <button class="btn-transparent">Download CV</button>
                     </div>
                 </div>
+            </div>
+            <div class="circle-wrapper">
+                <div class="img-circle">
+                    <div class="hero__img-icons figma"></div>
+                    <div class="hero__img-icons photoshop"></div>
+                    <div class="hero__img-icons xd"></div>
+                    <div class="hero__img-icons sketch"></div>
+                </div>
+                <div class="circle-mini"></div>
             </div>
             <div class="hero__links social-m-links">
                 <a href="#"><div><i class="fa-brands fa-linkedin-in"></i></div></a>
                 <a href="#"><div><i class="fa-brands fa-instagram"></i></div></a>
                 <a href="#"><div><i class="fa-brands fa-behance"></i></div></a>
             </div>
-        </div>
-        <div class="about-me">
+        </section>
+        <section class="about-me">
             <div class="about-me__container">
                 <div class="about-me__content">
                     <div class="about-me__content-left">
@@ -86,8 +84,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="portfolio">
+        </section>
+        <section class="portfolio">
             <div class="portfolio__container">
                 <div class="portfolio__content">
                     <button class="mini-button">Portfolio</button>
@@ -111,8 +109,8 @@
                     </div>
                 </div>            
             </div>
-        </div>
-        <div class="choose-us">
+        </section>
+        <!-- <section class="choose-us">
             <div class="choose-us__container">
                 <div class="choose-us__content">
                     <button class="mini-button">Why Choose Us</button>
@@ -149,8 +147,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="resume">
+        </section> -->
+        <!-- <section class="resume">
             <div class="resume__container">
                 <div class="resume__content">
                     <div class="resume__content-left">
@@ -213,8 +211,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="testimonial">
+        </section> -->
+        <!-- <section class="testimonial">
             <div class="testimonial__container">
                 <div class="testimonial__content">
                     <button class="mini-button">Testimonial</button>
@@ -262,8 +260,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="blog-post">
+        </section> -->
+        <section class="blog-post">
             <div class="blog-post__container">
                 <div class="blog-post__content">
                     <button class="mini-button">Blog Post</button>
@@ -302,8 +300,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="subscribe">
+        </section>
+        <!-- <section class="subscribe">
             <div class="subscribe__container">
                 <div class="subscribe__content">
                     <div class="wrapper">
@@ -321,8 +319,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="contact">
+        </section> -->
+        <!-- <section class="contact">
             <div class="contact__container">
                 <div class="contact-header">
                     <button class="mini-button">Contact</button>
@@ -368,10 +366,10 @@
                     <img class="map" src="images/map.jfif" alt="image of satelite map">
                 </div>
             </div>
-        </div>
+        </section> -->
     </main>
-    <footer>
+    <!-- <footer>
         <p class="fw-400">All Right Reserved. Designed and Developed by LabArtisan</p>
-    </footer>
+    </footer> -->
 </body>
 </html>

@@ -14,7 +14,10 @@
     <header class="header">
         <div class="header__container">
             <div class="header__menu menu">
-                <nav class="menu__navigation">
+                <div class="header__burger" id="burger">
+                    <span></span>
+                </div>
+                <nav class="menu__navigation" id="menu__navigation">
                     <li class="menu__item menu__item-orange"><a href="#">Home</a></li>
                     <li class="menu__item"><a href="#">About</a></li>
                     <li class="menu__item"><a href="#">Portfolio</a></li>
@@ -56,33 +59,33 @@
                 <a href="#"><div><i class="fa-brands fa-behance"></i></div></a>
             </div>
         </section>
-        <section class="about-me">
-            <div class="about-me__container">
-                <div class="about-me__content">
-                    <div class="about-me__heading heading">
-                        <button class="heading__mini-button mini-button">About Me</button>
-                        <h2 class="heading__title">Johan Deo</h2>
-                    </div>
-                    <p class="about-me__text fw-300" >I'm Graphic Designer,and I'm very passionate and dedicated to my work With 20 years experience as a professional Photography, I have lot of acquired the skills and knowledge necessary to make your project a success. I enjoy every step the Photography process,from discussion and collaboration.</p>
-                    <div class="about-me__contacts contacts">
-                        <div class="contacts__column">
-                            <div class="contacts__item fw-500 ff-o"><span>Birthday</span><span>:</span></div><div class="contacts__item-value fw-300 ff-ps">15 April 1990 </div>
-                            <div class="contacts__item fw-500 ff-o"><span>Website</span><span>:</span></div><div class="contacts__item-value fw-300 ff-ps">www.fgorman.com</div>
-                            <div class="contacts__item fw-500 ff-o"><span>Phone</span><span>:</span></div><div class="contacts__item-value fw-300 ff-ps">+1 650 123 4444</div>
-                            <div class="contacts__item fw-500 ff-o"><span>Study</span><span>:</span></div><div class="contacts__item-value fw-300 ff-ps">Univercity of Harvard</div>
+            <section class="about-me">
+                <div class="about-me__container">
+                    <div class="about-me__content">
+                        <div class="about-me__heading heading">
+                            <button class="heading__mini-button mini-button">About Me</button>
+                            <h2 class="heading__title">Johan Deo</h2>
                         </div>
-                        <div class="contacts__column">
-                            <div class="contacts__item fw-500 ff-o"><span>Degree</span><span>:</span></div><div class="contacts__item-value fw-300 ff-ps">Master</div>
-                            <div class="contacts__item fw-500 ff-o"><span>Mail</span><span>:</span></div><div class="contacts__item-value fw-300 ff-ps">info@biophoto.com</div>
-                            <div class="contacts__item fw-500 ff-o"><span>Linkedin</span><span>:</span></div><div class="contacts__item-value fw-300 ff-ps">@biography</div>
-                            <div class="contacts__item fw-500 ff-o"><span>Freelance</span><span>:</span></div><div class="contacts__item-value fw-300 ff-ps">Available</div>
+                        <p class="about-me__text fw-300" >I'm Graphic Designer,and I'm very passionate and dedicated to my work With 20 years experience as a professional Photography, I have lot of acquired the skills and knowledge necessary to make your project a success. I enjoy every step the Photography process,from discussion and collaboration.</p>
+                        <div class="about-me__contacts contacts">
+                            <div class="contacts__column">
+                                <div class="contacts__item fw-500 ff-o"><span>Birthday</span><span>:</span></div><div class="contacts__item-value fw-300 ff-ps">15 April 1990 </div>
+                                <div class="contacts__item fw-500 ff-o"><span>Website</span><span>:</span></div><div class="contacts__item-value fw-300 ff-ps">www.fgorman.com</div>
+                                <div class="contacts__item fw-500 ff-o"><span>Phone</span><span>:</span></div><div class="contacts__item-value fw-300 ff-ps">+1 650 123 4444</div>
+                                <div class="contacts__item fw-500 ff-o"><span>Study</span><span>:</span></div><div class="contacts__item-value fw-300 ff-ps">Univercity of Harvard</div>
+                            </div>
+                            <div class="contacts__column">
+                                <div class="contacts__item fw-500 ff-o"><span>Degree</span><span>:</span></div><div class="contacts__item-value fw-300 ff-ps">Master</div>
+                                <div class="contacts__item fw-500 ff-o"><span>Mail</span><span>:</span></div><div class="contacts__item-value fw-300 ff-ps">info@biophoto.com</div>
+                                <div class="contacts__item fw-500 ff-o"><span>Linkedin</span><span>:</span></div><div class="contacts__item-value fw-300 ff-ps">@biography</div>
+                                <div class="contacts__item fw-500 ff-o"><span>Freelance</span><span>:</span></div><div class="contacts__item-value fw-300 ff-ps">Available</div>
+                            </div>
                         </div>
+                        <button class="about-me__download-cv btn-orange">Download CV</button>
                     </div>
-                    <button class="about-me__download-cv btn-orange">Download CV</button>
                 </div>
-            </div>
-            <div class="about-me__img image-wrapper"></div>
-        </section>
+                <div class="about-me__img image-wrapper"></div>
+            </section>
         <section class="portfolio">
             <div class="portfolio__container">
                 <div class="portfolio__content">
@@ -380,5 +383,6 @@
     <footer>
         <p class="fw-400">All Right Reserved. Designed and Developed by LabArtisan</p>
     </footer>
+    <script src="index.js"></script>
 </body>
 </html>

@@ -5,7 +5,7 @@ const playersArray = [
         health: 30,
         power: 6,
         heal: 10,
-        activeSlot: '',
+        activeSlot: "",
         inventory: []
     },
     {
@@ -14,7 +14,7 @@ const playersArray = [
         health: 20,
         power: 4,
         heal: 12,
-        activeSlot: '',
+        activeSlot: "",
         inventory: []
     }
 ] 
@@ -29,9 +29,15 @@ const monsetrsArray = [
     },
     {
         type: 'Werewolf',
-        health: 50,
+        health: 20,
         power: 12,
         loot: 'fang of Werewolf'
+    },
+    {
+        type: 'Ogr',
+        health: 50,
+        power: 3,
+        loot: 'rotten tomatoes'
     }
 ]
 
@@ -40,20 +46,30 @@ const itemsArray = [
     {
         name: "the vampire's mantle",
         type: 'regeneration',
-        heal : 4,
+        regeneration : 4,
     }, 
     {
         name : 'fang of Werewolf',
         type: 'attack',
-        power: 6
-    }
+        attack: 6
+    },
+    {
+        name : 'rotten tomatoes',
+        type: 'attack',
+        attack: 3
+    },
 ]
 
 const currentCharacters = []
 console.log(monsetrsArray[0])
 
 chooseFighter()
+console.log(`${currentCharacters[0].name} meet ${monsetrsArray[0].type}`)
 chooseAction(currentCharacters[0], monsetrsArray[0])
+console.log(`${currentCharacters[0].name} meet ${monsetrsArray[1].type}`)
+chooseAction(currentCharacters[0], monsetrsArray[1])
+console.log(`${currentCharacters[0].name} meet ${monsetrsArray[2].type}`)
+chooseAction(currentCharacters[0], monsetrsArray[2])
 
 function chooseFighter (){
     let userChoice =  prompt(`Choose your fighter: \n 1 - ${introduce(playersArray[0])} \n 2 - ${introduce(playersArray[1])}`)
@@ -61,15 +77,13 @@ function chooseFighter (){
 }
 
 function introduce (player){
-    return `Name: ${player.name}, health: ${player.health}, power: ${player.power}, regeneration: ${player.heal}`
+    const {name, health, power, heal} = player
+    return `Name: ${name}, health: ${health}, power: ${power}, regeneration: ${heal}`
 }
 
 function chooseAction (player, monster) {
-    console.log(`${player.name} meet ${monster.type}`)
     let userInput = prompt("if you want to attack press 1 if heal press 2")
-    if (userInput == 1){
-        fight(player, monster, userInput)
-    } else if (userInput == 2){
+    if (userInput == 1 || userInput == 2){
         fight(player, monster, userInput)
     }else(
         console.log('wrong input')
@@ -78,34 +92,43 @@ function chooseAction (player, monster) {
 
 
 function fight (player, monster, userInput) {
+    const activeItem = player.activeSlot ? itemsArray.filter(item => item.name === player.activeSlot)[0] : ''
+    const healItemEffect =  activeItem.regeneration ? activeItem.regeneration : 0
+    const damageItemEffect = activeItem.attack ? activeItem.attack : 0
+
+    player.health = player.health - monster.power
+
     if (userInput == 1) {
-        player.health = player.health - monster.power
-        monster.health = monster.health - player.power
-        console.log(player.health, monster.health)
-        checkStateOfOpponents(player, monster)
+        monster.health = monster.health - player.power - damageItemEffect
     }else{
-        player.health = player.health - monster.power
-        player.health = player.health + player.heal > player.maxHealth ? player.maxHealth : player.health + player.heal
-        console.log(player.health, monster.health)
-        checkStateOfOpponents(player, monster)
+        player.health = player.health + player.heal + healItemEffect > player.maxHealth ? player.maxHealth : player.health + player.heal + healItemEffect
     }
+    console.log(`Your health is: ${player.health}, ${monster.type}'s health is: ${monster.health}`)
+    checkStateOfOpponents(player, monster)
 }
 
 function checkStateOfOpponents(player, monster){
     if ( player.health <= 0){
         console.log('You lose')
     } else if( monster.health <= 0){
-        console.log('monster is killed')
         const loot = itemsArray.filter(item => item.name === monster.loot)[0]
-        console.log(`You have got new item: "${monster.loot}". It increases your ${loot.type} by  ${loot.type === 'atack' ? loot.atack : loot.heal}`)
         player.inventory.push(monster.loot)
+
+        console.log('monster is killed')
+        console.log(`You have got new item: "${monster.loot}". It increases your ${loot.type} by  ${loot.type === 'attack' ? loot.attack : loot.regeneration}`)
         console.log(player.inventory)
+
+        useLoot(currentCharacters[0])
     }else{
         chooseAction(player, monster)
     }
 }
 
-// create next stage 
-// make separate function from if else if else block       DONE
-// store characters in temporary object 
-// think how to add them here and update every time something happens
+function useLoot (player) {
+    let userChoice = prompt(`Select item from your inventory to activate: \n ${player.inventory.map((item, index) => {
+        return `if you want to select ${item} press ${index + 1} \n`
+    })}`)
+    player.activeSlot = player.inventory[userChoice - 1]
+    console.log(player.activeSlot)
+}
+

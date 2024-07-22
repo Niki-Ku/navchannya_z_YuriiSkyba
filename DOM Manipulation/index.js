@@ -1,57 +1,37 @@
-const imageObjectArray = [
-    {
-        url: 'https://ichef.bbci.co.uk/news/999/cpsprodpb/FCD4/production/_131942746_33.jpg',
-        description: 'autumn picture',
-        id: getId(),
-    },
-    {
-        url: 'https://ichef.bbci.co.uk/news/999/cpsprodpb/FCD4/production/_131942746_33.jpg',
-        description: 'autumn picture',
-        id: getId(),
-    },
-    {
-        url: 'https://ichef.bbci.co.uk/news/999/cpsprodpb/FCD4/production/_131942746_33.jpg',
-        description: 'autumn picture',
-        id: getId(),
-    },
-    {
-        url: 'https://images.pexels.com/photos/26997896/pexels-photo-26997896.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        description: 'girl picture',
-        id: getId(),
-    },
-]
-
-
+let imageObjectArray = []
 const form = document.getElementById('form')
 const imagesContainer = document.getElementById('images-container')
 const lightboxEl = document.getElementById('lightbox')
 
+getItemsFromLocal()
 generateGallery()
 
 imageObjectArray.forEach(image => {
     document.addEventListener('click', function(e){
         if (e.target.id === image.id){
-            lightboxEffect(image, e.target.dataset.index)
+            lightboxEffect(e.target.dataset.index)
         }
     })
 })
 
 lightboxEl.addEventListener('click', function(e){
-    console.log(e.target)
     if (e.target !== e.currentTarget) return
     lightboxEl.classList.remove('active')
 })
 
 form.addEventListener('submit', function(e) {
     e.preventDefault()
-    const url = document.getElementById('url-input').value
-    const description = document.getElementById('description-input').value
+    let url = document.getElementById('url-input').value
+    let description = document.getElementById('description-input').value
     
-    imageObjectArray.push({
+    localStorage.setItem(`${getId()}`, JSON.stringify({
         url: url,
-        description: description,
-        id: getId()
-    })
+        description: description
+    })) 
+
+    url = ''
+    description = ''
+    getItemsFromLocal()
     generateGallery()
 })
 
@@ -74,73 +54,66 @@ function generateHtml(){
 }
 
 function generateSwipeHtml(){
-    let imageHtml = ''
-    imageObjectArray.map((imgObject, index) => {
+    let imageHtml = '';
+    imageObjectArray.forEach((imgObject, index) => {
         imageHtml += `
-        <div class="swiper-slide"
+        <div class="swiper-slide">
             <div class="image">
-                <img id=${imgObject.id} src=${imgObject.url} alt=${imgObject.description}  data-index=${index}>
+                <img id="${imgObject.id}" src="${imgObject.url}" alt="${imgObject.description}" data-index="${index}">
                 <p>${imgObject.description}</p>
             </div>
         </div>
-        `
-    })
-    return imageHtml
+        `;
+    });
+    return imageHtml;
 }
 
-console.log(generateSwipeHtml())
-
-function lightboxEffect(image, index){
+function lightboxEffect(index){
     lightboxEl.innerHTML = `
         <div class="swiper">
-        <!-- Additional required wrapper -->
-        <div class="swiper-wrapper">
-            <div class="swiper-slide"
-                <div class="image">
-                    <img  src=${image.url} >
-                </div>
+            <div class="swiper-wrapper">
+                ${generateSwipeHtml()}
             </div>
-            <div class="swiper-slide"
-                <div class="image">
-                    <img  src=${image.url} >
-                </div>
-            </div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
         </div>
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
-
-
-        </div>
-    `
-
-    // фінальна версія коду повинна юула бути такою, але щось зламалось
-    // `
-    //      <div class="swiper">
-    //         <div class="swiper-wrapper">
-    //         ${generateSwipeHtml()}
-    //         </div>
-            
-    //         <div class="swiper-button-prev"></div>
-    //         <div class="swiper-button-next"></div>
-    //     </div>
-    // `
-    lightboxEl.classList.add('active')
+    `;
+    lightboxEl.classList.add('active');
 
     new Swiper('.swiper', {
         loop: true,
-        // initialSlide: index,
-
-        // Navigation arrows
+        initialSlide: index,
         navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
         },
-
         observer: true,
         observeParents: true,
         observeSlideChildren: true,
-      });
+    });
 }
+
+
+
+function getItemsFromLocal(){
+    let itemsNames = []
+    for (let i = 0; i < localStorage.length; i++){
+        itemsNames.push(localStorage.key(i))
+    }
+    
+    const localStorageItems = itemsNames.map(item => {
+        return localStorage.getItem(item)
+    })
+    
+    imageObjectArray = localStorageItems.map(obj => {
+        let object = JSON.parse(obj)
+        return object = {...object,
+            id: getId()
+        }
+    })
+    
+}
+
 
 function getId(){
     const id = 'id' + Math.random().toString(16).slice(2)

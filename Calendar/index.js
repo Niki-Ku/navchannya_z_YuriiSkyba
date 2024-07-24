@@ -23,6 +23,7 @@ for (let i = 1; i <= 31; i++){
 calendar.addEventListener('dblclick', (e) => {
     callLightbox(e.target.id)
     console.log(2)
+    console.log(e.target.id)
     }
 )
 
@@ -30,72 +31,75 @@ lightbox.addEventListener('click', function(e){
     if (e.target !== e.currentTarget) return
     lightbox.classList.remove('active')
     document.getElementById('lightbox-notes').innerHTML = ''
+    document.getElementById('add-event-from').removeEventListener('submit', handleSubmit)
 })
 
 
 
 
-document.addEventListener('click', function(e){
-    const allDays = document.querySelectorAll('.day')
-    const selectedDay = document.getElementById(e.target.id)
+// document.addEventListener('click', function(e){
+//     const allDays = document.querySelectorAll('.day')
+//     const selectedDay = document.getElementById(e.target.id)
 
-    allDays.forEach(day => day.classList.remove('selected'))
-    if (calendar.contains(e.target) && e.target !== calendar){
-        // console.log(e.target)
-        selectedDay.classList.add('selected')
-    }
-})
+//     allDays.forEach(day => day.classList.remove('selected'))
+//     if (calendar.contains(e.target) && e.target !== calendar){
+//         selectedDay.classList.add('selected')
+//     }
+// })
 
-function callLightbox(id){
-    console.log(2)
-    document.body.classList.add('lock')
-    dayNumber.innerHTML = id
-    // console.log(id)
-    lightbox.classList.add('active')
-    // console.log(1)
-    generateNotes(getNotesFromLocal(id), id)
-    //one problem here
+// function callLightbox(id){
+//     console.log(id)
+//     document.body.classList.add('lock')
+//     dayNumber.innerHTML = id
+//     // console.log(id)
+//     lightbox.classList.add('active')
+//     // console.log(1)
+//     generateNotes(getNotesFromLocal(id), id)
+//     //one problem here
 
-    lightboxForm(id)
-}
+//     lightboxForm(id)
+// }
 
 function lightboxForm(celId){
-    document.getElementById('add-event-from').addEventListener('submit', function(e){
-        console.log(2)
-        console.log('second start')
-        e.preventDefault()
-        let noteTitle = document.getElementById('add-event-from-title').value
-        let noteDescription = document.getElementById('add-event-from-description').value
-
-        // console.log(noteTitle)
-        // console.log(noteDescription)
-
-        let notesFromLocal = getNotesFromLocal(celId)
-
-        let note = !notesFromLocal ? [{noteTitle: noteTitle, noteDescription: noteDescription, noteId: generateId(), celId: celId }] : [{
-            noteTitle: noteTitle,
-            noteDescription: noteDescription,
-            noteId: generateId(),
-            celId: celId
-        },
-        ...notesFromLocal];
-
-        // console.log(note)
-
-        noteTitle = ''   // doesn't work 
-        noteDescription = ''
-
-        // localStorage.removeItem(`${celId}`)
-        localStorage.setItem(`${celId}`, JSON.stringify(note))
-        const newNotes = getNotesFromLocal(celId)
-        generateNotes(newNotes, celId)
-    })
+    document.getElementById('add-event-from').addEventListener('submit', e => handleSubmit(e, celId))
 }
 
+function handleSubmit(e, celId){
+    console.log(2)
+    console.log('submit')
+    e.preventDefault()
+    e.stopImmediatePropagation()
+    let noteTitle = document.getElementById('add-event-from-title').value
+    let noteDescription = document.getElementById('add-event-from-description').value
+    console.log(celId)
+    // console.log(noteTitle)
+    // console.log(noteDescription)
+
+    let notesFromLocal = getNotesFromLocal(celId)
+
+    let note = !notesFromLocal ? [{noteTitle: noteTitle, noteDescription: noteDescription, noteId: generateId(), celId: celId }] : [{
+        noteTitle: noteTitle,
+        noteDescription: noteDescription,
+        noteId: generateId(),
+        celId: celId
+    },
+    ...notesFromLocal];
+
+    // console.log(note)
+
+    noteTitle = ''   // doesn't work 
+    noteDescription = ''
+
+    // localStorage.removeItem(`${celId}`)
+    localStorage.setItem(`${celId}`, JSON.stringify(note))
+    const newNotes = getNotesFromLocal(celId)
+    generateNotes(newNotes, celId)
+} 
 
 function generateNotes(notesArr, celId){
     // console.log(1)
     console.log(2)
+    console.log(celId)
     console.log(notesArr)
     // console.log(generateNotesHtml(notesArr))
     let notesDiv = document.getElementById('lightbox-notes')
@@ -112,13 +116,15 @@ function generateNotes(notesArr, celId){
                 console.log('click')
                 // button.parentElement.remove()
 
-                notesFromLocal.forEach(note => {
+                // notesFromLocal.forEach(note => {
+                notesArr.forEach(note => {
                     if (note.noteId === e.target.dataset.noteId){
                         console.log('yes')
                     }
                 })
                 console.log(notesFromLocal)
-                const result = notesFromLocal.filter(note => note.noteId !== e.target.dataset.noteId)
+                // const result = notesFromLocal.filter(note => note.noteId !== e.target.dataset.noteId)
+                const result = notesArr.filter(note => note.noteId !== e.target.dataset.noteId)
                 console.log(result)
                 localStorage.removeItem(`${celId}`)
                 localStorage.setItem(`${celId}`, JSON.stringify(result))
@@ -169,3 +175,5 @@ function generateId(){
 //on click delete this note from local storage
 // rerun generateNotes function
 
+//clear notes each time it generates
+// seems like lightboxForm function creates first time when you choose date and not deleting itself, and parameter it uses is parameter of first cel you clicked

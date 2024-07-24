@@ -37,28 +37,28 @@ lightbox.addEventListener('click', function(e){
 
 
 
-// document.addEventListener('click', function(e){
-//     const allDays = document.querySelectorAll('.day')
-//     const selectedDay = document.getElementById(e.target.id)
+document.addEventListener('click', function(e){
+    const allDays = document.querySelectorAll('.day')
+    const selectedDay = document.getElementById(e.target.id)
 
-//     allDays.forEach(day => day.classList.remove('selected'))
-//     if (calendar.contains(e.target) && e.target !== calendar){
-//         selectedDay.classList.add('selected')
-//     }
-// })
+    allDays.forEach(day => day.classList.remove('selected'))
+    if (calendar.contains(e.target) && e.target !== calendar){
+        selectedDay.classList.add('selected')
+    }
+})
 
-// function callLightbox(id){
-//     console.log(id)
-//     document.body.classList.add('lock')
-//     dayNumber.innerHTML = id
-//     // console.log(id)
-//     lightbox.classList.add('active')
-//     // console.log(1)
-//     generateNotes(getNotesFromLocal(id), id)
-//     //one problem here
+function callLightbox(id){
+    console.log(id)
+    document.body.classList.add('lock')
+    dayNumber.innerHTML = id
+    // console.log(id)
+    lightbox.classList.add('active')
+    // console.log(1)
+    generateNotes(getNotesFromLocal(id), id)
+    //one problem here
 
-//     lightboxForm(id)
-// }
+    lightboxForm(id)
+}
 
 function lightboxForm(celId){
     document.getElementById('add-event-from').addEventListener('submit', e => handleSubmit(e, celId))

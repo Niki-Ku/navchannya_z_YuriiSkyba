@@ -11,7 +11,7 @@
         <form class="calendar__form select-date-form" id="select-date-form">
             <label for="select-date"></label>
             <select name="select-date-form__select-date" id="select-date">
-                <option value="">Choose data</option>
+                <option value="" disabled selected>Choose data</option>
             </select>
             <button type="submit">Submit</button>
         </form>
@@ -22,9 +22,9 @@
             <h1 id="lightbox-day"></h1>
             <form class="lightbox__form add-event-from" action="" id="add-event-from">
                 <label for="add-event-from-title">Title</label>
-                <input type="text" name="title" id="add-event-from-title">
+                <input type="text" name="title" id="add-event-from-title" required>
                 <label for="add-event-from-description">Description</label>
-                <input type="text" name="Description" id="add-event-from-description">
+                <input type="text" name="Description" id="add-event-from-description" required>
                 <button type="submit">Submit</button>
             </form>
             <div class="lightbox__day-events" id="lightbox-notes">

@@ -1,0 +1,9 @@
+.done{
+    background-color: aqua;
+}
+
+.task div{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}

@@ -8,6 +8,14 @@ const form = document.getElementById('add-event-from')
 const selectForm = document.getElementById('select-date-form')
 let selectedDay = null
 
+const isPlans = (arr) => {
+    return arr !== null && arr.length > 0 ? "You have plans on this day" : ''
+}
+
+const getNotes = (day) => {
+    return JSON.parse(localStorage.getItem(day))
+}
+
 for (let i = 1; i <= 31; i++){
     const day = document.createElement('div')
     const option = document.createElement('option')
@@ -31,9 +39,7 @@ for (let i = 1; i <= 31; i++){
     })
 }
 
-function isPlans(arr){
-    return arr !== null && arr.length > 0 ? "You have plans on this day" : ''
-}
+
 
 lightbox.addEventListener('click', (e) => {
     if (e.target === lightbox){
@@ -55,7 +61,7 @@ form.addEventListener('submit', (e) => {
     addNote()
 })
 
-function selectDay(day){
+const selectDay = (day) => {
     if (selectedDay) {
        document.getElementById(`day-${selectedDay}`).classList.remove('selected')
     }
@@ -63,14 +69,14 @@ function selectDay(day){
     document.getElementById(`day-${day}`).classList.add('selected')
 }
 
-function callLightbox(day){
+const callLightbox = (day) =>{
     lightboxDay.innerText = `Day ${day}`
     lightbox.classList.add('active')
     selectedDay = day 
     updateNotesDiv()
 }
 
-function updateNotesDiv(){
+const updateNotesDiv = () => {
     let notes = getNotes(selectedDay) || [];
     notesDiv.innerHTML = ''
     notes.forEach(note => {
@@ -85,11 +91,9 @@ function updateNotesDiv(){
     });
 }
 
-function getNotes(day){
-    return JSON.parse(localStorage.getItem(day))
-}
 
-function addNote(){
+
+const addNote = () => {
     const title = document.getElementById('add-event-from-title').value
     const text = document.getElementById('add-event-from-description').value
     let notes = getNotes(selectedDay) || []
@@ -103,7 +107,7 @@ function addNote(){
 
 }
 
-function deleteNote(noteId){
+const deleteNote = (noteId) => {
     let notes = getNotes(selectedDay)
     notes = notes.filter(note => note.id !== noteId)
     localStorage.setItem(selectedDay, JSON.stringify(notes))
@@ -111,7 +115,7 @@ function deleteNote(noteId){
     document.getElementById(`plans-${selectedDay}`).innerHTML = isPlans(getNotes(selectedDay))
 }
 
-function generateId(){
+const generateId = () => {
     return 'id' + Math.random().toString(16).slice(2)
 }
 

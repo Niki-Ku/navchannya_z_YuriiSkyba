@@ -1,0 +1,20 @@
+.display-error{
+  margin: 0;
+  padding: 0;
+  display: none;
+  color: rgba(255, 0, 0, 0.593);
+}
+
+.display-error.show{
+  display: block;
+}
+
+input{
+  border: none;
+  background-color: lightgrey;
+  outline: none;
+}
+
+.green{
+  border-bottom: 1px solid greenyellow;
+}

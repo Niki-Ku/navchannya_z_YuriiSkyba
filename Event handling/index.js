@@ -1,18 +1,34 @@
-const generateErrorMessage = (value) =>{
-  const messages = [];
-  if (!/(?=.*\d)/.test(value)) {
-    messages.push("Password must contain at least one digit.");
+// const generateErrorMessage = (value) =>{
+//   const messages = [];
+//   if (!/(?=.*\d)/.test(value)) {
+//     messages.push("Password must contain at least one digit.");
+//   }
+//   if (!/(?=.*[a-z])/.test(value)) {
+//     messages.push("Password must contain at least one lowercase letter.");
+//   }
+//   if (!/(?=.*[A-Z])/.test(value)) {
+//     messages.push("Password must contain at least one uppercase letter.");
+//   }
+//   if (!/.{8,}/.test(value)) {
+//     messages.push("Password must be at least 8 characters long.");
+//   }
+//   return messages[0]
+// }
+
+const regexChecks = [
+  { regex: /(?=.*\d)/, message: "Password must contain at least one digit." },
+  { regex: /(?=.*[a-z])/, message: "Password must contain at least one lowercase letter." },
+  { regex: /(?=.*[A-Z])/, message: "Password must contain at least one uppercase letter." },
+  { regex: /.{8,}/, message: "Password must be at least 8 characters long." }
+];
+
+const generateErrorMessage = (value) => {
+  for (const check of regexChecks) {
+    if (!check.regex.test(value)) {
+      return check.message;  
+    }
   }
-  if (!/(?=.*[a-z])/.test(value)) {
-    messages.push("Password must contain at least one lowercase letter.");
-  }
-  if (!/(?=.*[A-Z])/.test(value)) {
-    messages.push("Password must contain at least one uppercase letter.");
-  }
-  if (!/.{8,}/.test(value)) {
-    messages.push("Password must be at least 8 characters long.");
-  }
-  return messages[0]
+  return ""; 
 }
 
 const validateOptions = [    
@@ -41,33 +57,69 @@ const validateOptions = [
   },
 ]
 
+// const validateInput = formField => {
+//   const input = formField.querySelector('input');
+//   const label = formField.querySelector('label');
+//   const displayError = formField.querySelector('.display-error');
+//   let validField = true;
+//   for (const option of validateOptions){
+//     if (input.hasAttribute(option.attribute) && !option.isValid(input)){
+//       validField = false;
+//       if(!validField){
+//         displayError.textContent = option.errorMessage(input, label);
+//         displayError.classList.add('show');
+//         input.classList.remove('green');
+//       }
+//     }
+//     if (validField) {
+//       displayError.classList.remove('show');
+//       input.classList.add('green');
+//       if (input.id === 'password'){
+//         password = input.value;
+//       }
+//     }
+//   }
+//   return validField
+// }
+
+const applyUIEffects = (valid, formField, message) => {
+  const displayError = formField.querySelector('.display-error');
+  const input = formField.querySelector('input');
+  if (valid) {
+    displayError.classList.remove('show');
+    input.classList.add('green');
+    if (input.id === 'password'){
+      password = input.value;
+    }
+  } else {
+    displayError.textContent = message;
+    displayError.classList.add('show');
+    input.classList.remove('green');
+    
+  }
+}
+
 const validateInput = formField => {
   const input = formField.querySelector('input');
   const label = formField.querySelector('label');
-  const displayError = formField.querySelector('.display-error');
-  let validField = true;
-  for (const option of validateOptions){
-    if (input.hasAttribute(option.attribute) && !option.isValid(input)){
-      validField = false;
-      if(!validField){
-        displayError.textContent = option.errorMessage(input, label);
-        displayError.classList.add('show');
-        input.classList.remove('green');
-      }
-    }
-    if (validField) {
-      displayError.classList.remove('show');
-      input.classList.add('green');
-      if (input.id === 'password'){
-        password = input.value;
-      }
+  let isValid = true;
+
+  for (const option of validateOptions) {
+    if (input.hasAttribute(option.attribute) && !option.isValid(input)) {
+      applyUIEffects(false, formField, option.errorMessage(input, label));
+      isValid = false;
+      break; 
     }
   }
-  return validField
+  
+  if (isValid) {
+    applyUIEffects(true, formField, '');
+  }
+  
+  return isValid;
 }
 
 let password = '';
-
 const allFormFields = Array.from(form.querySelectorAll('.form-field'));
 
 const validateForm = formId => {
@@ -89,3 +141,5 @@ allFormFields.forEach(field => field.querySelector('input').onfocus = () => {
 });
 
 validateForm('form');
+
+

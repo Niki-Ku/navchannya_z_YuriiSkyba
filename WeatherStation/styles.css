@@ -1,0 +1,11 @@
+#show-weather {
+  display: flex;
+}
+
+#weather-description {
+  margin: 0;
+}
+
+#current-weather-button{
+  margin-top: 20px;
+}

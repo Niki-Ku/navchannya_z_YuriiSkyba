@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Weather Station</title>
+    <script src="index.js" defer></script>
+</head>
+<body>
+  <main id="main">
+    <form action="" id="form">
+      <label for="temperature">temperature in °C</label>
+      <input type="number" id="temperature">
+      <br>
+      <label for="humidity">humidity in %</label>
+      <input type="number" id="humidity">
+      <br>
+      <label for="pressure">pressure in mm</label>
+      <input type="number" id="pressure">
+      <br>
+      <button type="submit">Show forecast</button>
+    </form>
+    <div id="show-weather">
+      <div id="display-data"></div>
+      <div>
+        <img id="weather-icon" src="https://openweathermap.org/img/wn/02d@2x.png" alt="default icon of current weather">
+        <p id="weather-description"></p>
+      </div>
+    </div>
+    <button id="current-weather-button">Show current weather</button>
+  </main>
+</body>
+</html>

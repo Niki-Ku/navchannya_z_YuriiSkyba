@@ -1,20 +1,3 @@
-// const generateErrorMessage = (value) =>{
-//   const messages = [];
-//   if (!/(?=.*\d)/.test(value)) {
-//     messages.push("Password must contain at least one digit.");
-//   }
-//   if (!/(?=.*[a-z])/.test(value)) {
-//     messages.push("Password must contain at least one lowercase letter.");
-//   }
-//   if (!/(?=.*[A-Z])/.test(value)) {
-//     messages.push("Password must contain at least one uppercase letter.");
-//   }
-//   if (!/.{8,}/.test(value)) {
-//     messages.push("Password must be at least 8 characters long.");
-//   }
-//   return messages[0]
-// }
-
 const regexChecks = [
   { regex: /(?=.*\d)/, message: "Password must contain at least one digit." },
   { regex: /(?=.*[a-z])/, message: "Password must contain at least one lowercase letter." },
@@ -56,31 +39,6 @@ const validateOptions = [
     errorMessage: (input, label) => `${label.textContent} is required`
   },
 ]
-
-// const validateInput = formField => {
-//   const input = formField.querySelector('input');
-//   const label = formField.querySelector('label');
-//   const displayError = formField.querySelector('.display-error');
-//   let validField = true;
-//   for (const option of validateOptions){
-//     if (input.hasAttribute(option.attribute) && !option.isValid(input)){
-//       validField = false;
-//       if(!validField){
-//         displayError.textContent = option.errorMessage(input, label);
-//         displayError.classList.add('show');
-//         input.classList.remove('green');
-//       }
-//     }
-//     if (validField) {
-//       displayError.classList.remove('show');
-//       input.classList.add('green');
-//       if (input.id === 'password'){
-//         password = input.value;
-//       }
-//     }
-//   }
-//   return validField
-// }
 
 const applyUIEffects = (valid, formField, message) => {
   const displayError = formField.querySelector('.display-error');

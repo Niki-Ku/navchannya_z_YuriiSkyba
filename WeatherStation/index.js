@@ -31,18 +31,23 @@ const weatherStation = {
 const getWeatherState = (humidity) => {
   let weatherState = ''
   let icon = ''
-  if (humidity <= 10) {
-    weatherState = 'It is sunny'
-    icon = '01d'
-  }else if (humidity <= 25) {
-    weatherState = 'scattered clouds'
-    icon = '03d'
-  }else if (humidity < 40) {
-    weatherState = 'broken clouds'
-    icon = '04d'
-  }else if (humidity > 40) {
-    weatherState = 'shower rain'
-    icon = '09d'
+  switch (true) {
+    case humidity <= 10:
+      weatherState = 'It is sunny'
+      icon = '01d'
+      break
+    case humidity <= 25:
+      weatherState = 'scattered clouds'
+      icon = '03d'
+      break
+    case humidity < 40:
+      weatherState = 'broken clouds'
+      icon = '04d'
+      break
+    case humidity >= 40:
+      weatherState = 'shower rain'
+      icon = '09d'
+      break
   }
   return { weatherState, icon }
 }
